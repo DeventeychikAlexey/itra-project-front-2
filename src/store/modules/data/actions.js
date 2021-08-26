@@ -18,107 +18,138 @@ export default {
 
   // Collections
   async GET_COLLECTION({}, id) {
-    const resp = await axios.get(`http://localhost:3000/collection/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/collection/${id}`
+    );
     return resp.data.msg;
   },
   async GET_COLLECTIONS({}) {
-    const resp = await axios.get(`http://localhost:3000/collections`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/collections`
+    );
     return resp.data.msg;
   },
   async GET_USER_COLLECTIONS({}, id) {
-    const resp = await axios.get(`http://localhost:3000/collections/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/collections/${id}`
+    );
     return resp.data.msg;
   },
   async COUNT_COLLECTION_ITEMS({}, id) {
     const resp = await axios.get(
-      `http://localhost:3000/collection/items/${id}`
+      `https://itra-project.herokuapp.com/back/collection/items/${id}`
     );
     return resp.data.msg;
   },
   async CREATE_MY_COLLECTION({}, body) {
-    const resp = await axios.post(`http://localhost:3000/user/collections`, {
-      name: body.name,
-      description: body.description,
-      id_topic: body.id_topic,
-      image: body.image
-    });
+    const resp = await axios.post(
+      `https://itra-project.herokuapp.com/back/user/collections`,
+      {
+        name: body.name,
+        description: body.description,
+        id_topic: body.id_topic,
+        image: body.image
+      }
+    );
     return resp.data.msg;
   },
   async EDIT_MY_COLLECTION({}, body) {
     const id = body.id;
     delete body.id;
     const resp = await axios.put(
-      `http://localhost:3000/user/collection/${id}`,
+      `https://itra-project.herokuapp.com/back/user/collection/${id}`,
       body
     );
     return resp.data.msg;
   },
   async DELETE_MY_COLLECTION({}, { id }) {
     const resp = await axios.delete(
-      `http://localhost:3000/user/collection/${id}`
+      `https://itra-project.herokuapp.com/back/user/collection/${id}`
     );
     return resp.data.msg;
   },
 
   // Items
   async GET_COLLECTION_ITEMS({}, id) {
-    const resp = await axios.get(`http://localhost:3000/items/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/items/${id}`
+    );
     return resp.data.msg;
   },
   async GET_ITEMS({}) {
-    const resp = await axios.get(`http://localhost:3000/items`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/items`
+    );
     return resp.data.msg;
   },
 
   // Topics
   async UPDATE_TOPICS({ commit }) {
-    let resp = await axios.get(`http://localhost:3000/topics`);
+    let resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/topics`
+    );
     resp.data.msg.map(el => Object.assign(el, { value: el.name }));
     commit("UPDATE_TOPICS", resp.data.msg);
   },
 
   //Tags
   async UPDATE_TAGS({ commit }) {
-    let resp = await axios.get(`http://localhost:3000/tags`);
+    let resp = await axios.get(`https://itra-project.herokuapp.com/back/tags`);
     resp.data.msg.map(el => Object.assign(el, { value: el.tag }));
     commit("UPDATE_TAGS", resp.data.msg);
   },
 
   // Users
   async GET_USERS({}) {
-    const resp = await axios.get(`http://localhost:3000/users`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/users`
+    );
     return resp.data.msg;
   },
   async GET_USER({}, id) {
-    const resp = await axios.get(`http://localhost:3000/user/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/user/${id}`
+    );
     return resp.data.msg;
   },
 
   // Likes
   async COUNT_LIKES({}, id) {
-    const resp = await axios.get(`http://localhost:3000/item/likes/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/item/likes/${id}`
+    );
     return resp.data.msg;
   },
   async IS_ITEM_LIKED({}, id) {
-    const resp = await axios.get(`http://localhost:3000/user/liked/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/user/liked/${id}`
+    );
     return resp.data.msg;
   },
   async LIKE_ITEM({}, id) {
-    const resp = await axios.put(`http://localhost:3000/user/like/${id}`);
+    const resp = await axios.put(
+      `https://itra-project.herokuapp.com/back/user/like/${id}`
+    );
     return resp.data.msg;
   },
   async UNLIKE_ITEM({}, id) {
-    const resp = await axios.put(`http://localhost:3000/user/unlike/${id}`);
+    const resp = await axios.put(
+      `https://itra-project.herokuapp.com/back/user/unlike/${id}`
+    );
     return resp.data.msg;
   },
 
   // Images
   async GET_IMAGE({}, id) {
-    const resp = await axios.get(`http://localhost:3000/image/${id}`);
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/image/${id}`
+    );
     return resp.data.msg;
   },
   async DELETE_IMAGE({}, id) {
-    const resp = await axios.delete(`http://localhost:3000/user/image/${id}`);
+    const resp = await axios.delete(
+      `https://itra-project.herokuapp.com/back/user/image/${id}`
+    );
     return resp.data.msg;
   }
 };
