@@ -1,0 +1,80 @@
+{
+   "form":{
+      "error":{
+         "string":"This field needs to be a string!",
+         "required":"This field is required!",
+         "email":"Wrong email!",
+         "min":"Minimum chars is 6!",
+         "max":"Maximum chars is 32!"
+      }
+   },
+   "view":{
+      "home":{
+         "title-1":"Found items",
+         "title-2":"Recently added items",
+         "title-3":"Biggest collections",
+         "searchPlaceholder":"Find items by tags"
+      },
+      "register":
+      {
+         "title":"Create account",
+         "user":
+         {
+            "name":"Name",
+            "email":"Email address",
+            "password":"Password",
+            "password2":"Repeat password"
+         },
+         "button":"Register",
+         "text":"Already singed on?",
+         "route":"Sign in"
+      },
+      "login":
+      {
+         "title":"Login",
+         "user":
+         {
+            "email":"Email address",
+            "password":"Password"
+         },
+         "button":"Sign in",
+         "text":"Not signed on yet?",
+         "route":"Sing on",
+         "media":"Or sign in with"
+      },
+      "page":{
+         "title-1":"my page",
+         "title-2":"Create collection",
+         "title-3":"Collections",
+         "text-1":"Collections do not exist by now :(",
+         "text-2":"Nothing is found :(",
+         "searchPlaceholder":"Search collections by name",
+         "successDelete":"Collection has been successfully created!"
+      }
+   },
+   "component":{
+      "navbar":{
+         "routes":{
+            "login":"Login",
+            "register":"Register",
+            "page":"My page",
+            "logout":"Logout",
+            "admin": "Admin"
+         },
+         "searchPlaceholder":"Find items"
+      },
+      "collection":{
+         "button":{
+            "view":"View",
+            "edit":"Edit",
+            "delete":"REmove"
+         },
+         "create":{
+            "name":"Name",
+            "description":"Description",
+            "searchPlaceholder":"Choose topic",
+            "button":"Add"
+         }
+      }
+   }
+}
