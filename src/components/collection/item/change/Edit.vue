@@ -1,25 +1,30 @@
 <template>
   <div :class="`card w-100 shadow-sm bg-${theme} text-${themeText}`">
     <div class="card-body">
-      <form @submit.prevent="createItem">
+      <form @submit.prevent="editItem">
         <div class="form-outline border rounded-3 mb-2">
           <input
-            v-model="item.name"
+            v-model="collectionItem.name"
             type="text"
             id="form8Example1"
-            :class="`form-control text-${themeText}`"
+            :class="
+              `form-control ${collectionItem.name &&
+                'active'} text-${themeText}`
+            "
           />
           <label
             for="form8Example1"
-            :class="`form-label fs-6 text-${themeText}`"
-            >{{ $t("component.collection.item.change.create.name") }}</label
-          >
+            :class="`form-label fs-6 text-${themeText} `"
+            >{{ this.$t("component.collection.item.change.edit.name") }}
+          </label>
         </div>
 
         <Multiselect
           v-model="newTags"
           mode="tags"
-          :placeholder="$t('component.collection.item.change.create.search-1')"
+          :placeholder="
+            this.$t('component.collection.item.change.edit.search-1')
+          "
           :options="tags"
           :searchable="true"
           :createTag="true"
@@ -32,7 +37,7 @@
           </template>
         </Multiselect>
         <h6 class="text-start mt-3">
-          {{ $t("component.collection.item.change.create.countFields") }}
+          {{ this.$t("component.collection.item.change.edit.countFields") }}
         </h6>
         <div class=" row mb-4 g-2">
           <div class="col-xl-4 col-md-6 col-12 form-outline border rounded-3">
@@ -44,11 +49,9 @@
               :class="`form-control active text-${themeText}`"
               v-model.number="countFieldsNumber"
             />
-            <label :class="`form-label text-${themeText}`" for="typeNumber1">
-              {{
-                $t("component.collection.item.change.create.fieldNumber")
-              }}</label
-            >
+            <label :class="`form-label text-${themeText}`" for="typeNumber1">{{
+              this.$t("component.collection.item.change.edit.fieldNumber")
+            }}</label>
           </div>
           <div class="col-xl-4 col-md-6 col-12 form-outline border rounded-3 ">
             <input
@@ -60,9 +63,10 @@
               v-model.number="countFieldsText"
             />
             <label :class="`form-label text-${themeText}`" for="typeNumber2">{{
-              $t("component.collection.item.change.create.fieldText")
+              this.$t("component.collection.item.change.edit.fieldText")
             }}</label>
           </div>
+
           <div class="col-xl-4 col-md-6 col-12 form-outline border rounded-3 ">
             <input
               type="number"
@@ -73,7 +77,7 @@
               v-model.number="countFieldsString"
             />
             <label :class="`form-label text-${themeText}`" for="typeNumber3">{{
-              $t("component.collection.item.change.create.fieldString")
+              this.$t("component.collection.item.change.edit.fieldString")
             }}</label>
           </div>
           <div class="col-xl-4 col-md-6 col-12 form-outline border rounded-3 ">
@@ -86,7 +90,7 @@
               v-model.number="countFieldsDate"
             />
             <label :class="`form-label text-${themeText}`" for="typeNumber4">{{
-              $t("component.collection.item.change.create.fieldDate")
+              this.$t("component.collection.item.change.edit.fieldDate")
             }}</label>
           </div>
           <div class="col-xl-4 col-md-6 col-12 form-outline border rounded-3  ">
@@ -99,73 +103,77 @@
               v-model.number="countFieldsBoolean"
             />
             <label :class="`form-label text-${themeText}`" for="typeNumber5">{{
-              $t("component.collection.item.change.create.fieldBool")
+              this.$t("component.collection.item.change.edit.fieldBool")
             }}</label>
           </div>
         </div>
         <div class="row mb-4">
           <div
             class="col-xl-4 col-md-6 col-12"
-            v-if="item.fieldsNumber.length > 0"
+            v-if="collectionItem.fieldsNumber.length > 0"
           >
             <h6 class="text-start mt-3">
               {{
-                $t("component.collection.item.change.create.fieldNumber-title")
+                this.$t(
+                  "component.collection.item.change.edit.fieldNumber-title"
+                )
               }}
             </h6>
-            <Fields :fields="item.fieldsNumber" :type="`number`" />
+            <Fields :fields="collectionItem.fieldsNumber" :type="`number`" />
           </div>
           <div
             class="col-xl-4 col-md-6 col-12"
-            v-if="item.fieldsText.length > 0"
+            v-if="collectionItem.fieldsText.length > 0"
           >
             <h6 class="text-start mt-3">
               {{
-                $t("component.collection.item.change.create.fieldText-title")
+                this.$t("component.collection.item.change.edit.fieldText-title")
               }}
             </h6>
-            <Fields :fields="item.fieldsText" :type="`text`" />
+            <Fields :fields="collectionItem.fieldsText" :type="`text`" />
           </div>
           <div
             class="col-xl-4 col-md-6 col-12"
-            v-if="item.fieldsString.length > 0"
+            v-if="collectionItem.fieldsString.length > 0"
           >
             <h6 class="text-start mt-3">
               {{
-                $t("component.collection.item.change.create.fieldString-title")
+                this.$t(
+                  "component.collection.item.change.edit.fieldString-title"
+                )
               }}
             </h6>
-            <Fields :fields="item.fieldsString" :type="`text`" />
+            <Fields :fields="collectionItem.fieldsString" :type="`text`" />
           </div>
           <div
             class="col-xl-4 col-md-6 col-12"
-            v-if="item.fieldsDate.length > 0"
+            v-if="collectionItem.fieldsDate.length > 0"
           >
             <h6 class="text-start mt-3">
               {{
-                $t("component.collection.item.change.create.fieldDate-title")
+                this.$t("component.collection.item.change.edit.fieldDate-title")
               }}
             </h6>
-            <Fields :fields="item.fieldsDate" :type="`date`" />
+            <Fields :fields="collectionItem.fieldsDate" :type="`date`" />
           </div>
           <div
             class="col-xl-4 col-md-6 col-12"
-            v-if="item.fieldsBoolean.length > 0"
+            v-if="collectionItem.fieldsBoolean.length > 0"
           >
             <h6 class="text-start mt-3">
               {{
-                $t("component.collection.item.change.create.fieldBool-title")
+                this.$t("component.collection.item.change.edit.fieldBool-title")
               }}
             </h6>
-            <Fields :fields="item.fieldsBoolean" :type="`boolean`" />
+            <Fields :fields="collectionItem.fieldsBoolean" :type="`boolean`" />
           </div>
         </div>
         <button
           type="submit"
-          class="w-100 btn btn-lg btn-primary"
+          class="w-100 btn btn-lg btn-secondary"
           :disabled="disabled"
         >
-          {{ $t("component.collection.item.change.create.button") }}
+          {{ this.$t("component.collection.item.change.edit.button") }}
         </button>
       </form>
     </div>
@@ -181,30 +189,23 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   components: { Multiselect, Fields },
   props: {
-    id: {
-      type: Number,
+    item: {
+      type: Object,
       required: true
     }
   },
   data() {
     return {
-      newTags: [],
+      newTags: this.item.tags.map(({ tag }) => tag),
       blocked: false,
       maxCount: 6,
       minCount: 0,
+      collectionItem: Object.assign({}, this.item),
       countFieldsNumber: 0,
       countFieldsText: 0,
       countFieldsString: 0,
       countFieldsDate: 0,
       countFieldsBoolean: 0,
-      item: {
-        name: "",
-        fieldsNumber: [],
-        fieldsText: [],
-        fieldsString: [],
-        fieldsDate: [],
-        fieldsBoolean: []
-      },
       fieldsNumberCopy: [],
       fieldsTextCopy: [],
       fieldsStringCopy: [],
@@ -220,30 +221,39 @@ export default {
   },
   watch: {
     countFieldsNumber(value) {
-      this.item.fieldsNumber = this.createFields(this.fieldsNumberCopy, value);
+      this.collectionItem.fieldsNumber = this.createFields(
+        this.fieldsNumberCopy,
+        value
+      );
     },
     countFieldsText(value) {
-      this.item.fieldsText = this.createFields(this.fieldsTextCopy, value);
+      this.collectionItem.fieldsText = this.createFields(
+        this.fieldsTextCopy,
+        value
+      );
     },
     countFieldsString(value) {
-      this.item.fieldsString = this.createFields(this.fieldsStringCopy, value);
+      this.collectionItem.fieldsString = this.createFields(
+        this.fieldsStringCopy,
+        value
+      );
     },
     countFieldsDate(value) {
-      this.item.fieldsDate = this.createFields(
+      this.collectionItem.fieldsDate = this.createFields(
         this.fieldsDateCopy,
         value,
         "date"
       );
     },
     countFieldsBoolean(value) {
-      this.item.fieldsBoolean = this.createFields(
+      this.collectionItem.fieldsBoolean = this.createFields(
         this.fieldsBooleanCopy,
         value
       );
     }
   },
   methods: {
-    ...mapActions(["CREATE_MY_ITEM", "CREATE_ITEM", "UPDATE_TAGS"]),
+    ...mapActions(["EDIT_MY_ITEM", "EDIT_ITEM", "UPDATE_TAGS"]),
     createFields(fieldsCopy, value, type = null) {
       for (let i = 0; i < value && i < this.maxCount; i++)
         if (!fieldsCopy[i] && type === "date") {
@@ -260,69 +270,81 @@ export default {
       if (value > this.maxCount) return fieldsCopy.slice(0, this.maxCount);
       return fieldsCopy.slice(0, value);
     },
-    clearForm() {
-      this.item.name = "";
-      this.newTags = [];
-      this.item.fieldsNumber = [];
-      this.item.fieldsText = [];
-      this.item.fieldsString = [];
-      this.item.fieldsDate = [];
-      this.item.fieldsBoolean = [];
-      this.item.fieldsNumberCopy = [];
-      this.item.fieldsTextCopy = [];
-      this.item.fieldsStringCopy = [];
-      this.item.fieldsDateCopy = [];
-      this.item.fieldsBooleanCopy = [];
-      this.countFieldsNumber = 0;
-      this.countFieldsText = 0;
-      this.countFieldsString = 0;
-      this.countFieldsDate = 0;
-      this.countFieldsBoolean = 0;
-    },
-    async createMyItem() {
-      await this.CREATE_MY_ITEM({
-        id_collection: this.id,
-        name: this.item.name,
+    async editMyItem() {
+      await this.EDIT_MY_ITEM({
+        itemId: this.collectionItem.id,
+        name: this.collectionItem.name,
         tags: this.newTags,
-        fieldsNumber: this.item.fieldsNumber,
-        fieldsText: this.item.fieldsText,
-        fieldsString: this.item.fieldsString,
-        fieldsDate: this.item.fieldsDate,
-        fieldsBoolean: this.item.fieldsBoolean
+        fieldsNumber: this.collectionItem.fieldsNumber,
+        fieldsText: this.collectionItem.fieldsText,
+        fieldsString: this.collectionItem.fieldsString,
+        fieldsDate: this.collectionItem.fieldsDate,
+        fieldsBoolean: this.collectionItem.fieldsBoolean
       });
     },
-    async createItemById() {
-      await this.CREATE_ITEM({
-        id_collection: this.id,
-        name: this.item.name,
+    async editItemById() {
+      await this.EDIT_ITEM({
+        itemId: this.collectionItem.id,
+        name: this.collectionItem.name,
         tags: this.newTags,
-        fieldsNumber: this.item.fieldsNumber,
-        fieldsText: this.item.fieldsText,
-        fieldsString: this.item.fieldsString,
-        fieldsDate: this.item.fieldsDate,
-        fieldsBoolean: this.item.fieldsBoolean
+        fieldsNumber: this.collectionItem.fieldsNumber,
+        fieldsText: this.collectionItem.fieldsText,
+        fieldsString: this.collectionItem.fieldsString,
+        fieldsDate: this.collectionItem.fieldsDate,
+        fieldsBoolean: this.collectionItem.fieldsBoolean
       });
     },
-    async createItem() {
+    async editItem() {
       try {
         this.blocked = true;
-        if (this.isAdmin) await this.createItemById();
-        else await this.createMyItem();
+        if (this.isAdmin) await this.editItemById();
+        else await this.editMyItem();
         await this.UPDATE_TAGS();
-        this.$emit("updateItems");
-        this.$toast.success(
-          this.$t("component.collection.item.change.create.success-1")
-        );
-        this.clearForm();
+        this.$router.push(`/collection/${this.item.id_collection}`);
       } catch (error) {
         this.$toast.error(
           error.response.data?.msg ||
-            this.$t("component.collection.item.change.create.error")
+            this.$t("component.collection.item.change.edit.error")
         );
       } finally {
         this.blocked = false;
         setTimeout(this.$toast.clear, 3000);
       }
+    }
+  },
+  created() {
+    if (this.item) {
+      this.countFieldsNumber = this.item.fieldsInteger.length;
+      this.countFieldsText = this.item.fieldsText.length;
+      this.countFieldsString = this.item.fieldsString.length;
+      this.countFieldsDate = this.item.fieldsDate.length;
+      this.countFieldsBoolean = this.item.fieldsBoolean.length;
+      this.fieldsNumberCopy = [...this.item.fieldsInteger];
+      this.fieldsTextCopy = [...this.item.fieldsText];
+      this.fieldsStringCopy = [...this.item.fieldsString];
+      this.fieldsDateCopy = [...this.item.fieldsDate];
+      this.fieldsBooleanCopy = [...this.item.fieldsBoolean];
+      this.collectionItem.fieldsNumber = this.createFields(
+        this.fieldsNumberCopy,
+        this.countFieldsNumber
+      );
+      this.collectionItem.fieldsText = this.createFields(
+        this.fieldsTextCopy,
+        this.countFieldsText
+      );
+      this.collectionItem.fieldsString = this.createFields(
+        this.fieldsStringCopy,
+        this.countFieldsString
+      );
+      this.collectionItem.fieldsDate = this.createFields(
+        this.fieldsDateCopy,
+        this.countFieldsDate,
+        "date"
+      );
+      this.collectionItem.fieldsBoolean = this.createFields(
+        this.fieldsBooleanCopy,
+        this.countFieldsBoolean
+      );
     }
   }
 };

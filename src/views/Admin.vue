@@ -2,11 +2,12 @@
   <div>
     <h3 class="text mb-5">
       Админка с правами
+      {{ $t("view.admin.title-1") }}
       <span class="badge bg-info text-dark ms-1"> {{ right }}</span>
     </h3>
 
     <h3 class="text text-center mb-3">
-      Пользователи сайта
+      {{ $t("view.admin.title-2") }}
     </h3>
     <input class="form-control p-1 rounded" type="text" v-model="searchValue" />
     <Users
@@ -15,7 +16,7 @@
       :users="curUsers"
     />
     <p v-else class="text-center fs-5 mt-5">
-      Никого не найдено :(
+      {{ $t("view.admin.text-1") }}
     </p>
   </div>
 </template>

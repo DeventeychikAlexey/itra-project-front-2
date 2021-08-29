@@ -10,18 +10,18 @@
             v-model="collection.name"
             type="text"
             id="form8Example1"
-            class="form-control"
+            :class="`form-control text-${themeText}`"
           />
           <label
             for="form8Example1"
             :class="`form-label fs-6 text-${themeText}`"
-            >{{ $t("component.collection.create.name") }}</label
+            >{{ $t("component.collection.change.create.name") }}</label
           >
         </div>
 
         <Multiselect
           v-model="collection.topic"
-          :placeholder="$t('component.collection.create.searchPlaceholder')"
+          :placeholder="$t('component.collection.change.create.search-1')"
           label="name"
           trackBy="name"
           :options="topics"
@@ -36,22 +36,23 @@
         <div class="form-outline border rounded-3 mb-2">
           <textarea
             v-model="collection.description"
-            class="form-control"
+            :class="`form-control text-${themeText}`"
             id="form4Example3"
             rows="4"
           ></textarea>
           <label
             :class="`form-label fs-6 text-${themeText}`"
             for="form4Example3"
-            >{{ $t("component.collection.create.description") }}</label
           >
+            {{ $t("component.collection.change.create.description") }}
+          </label>
         </div>
         <button
           type="submit"
           class="w-100 btn btn-lg btn-primary"
           :disabled="disabled"
         >
-          {{ $t("component.collection.create.button") }}
+          {{ $t("component.collection.change.create.button") }}
         </button>
       </form>
     </div>
@@ -128,14 +129,18 @@ export default {
         if (this.isAdmin) await this.createCollectionById();
         else await this.createMyCollection();
         this.$emit("updateCollections");
-        this.$toast.success("Коллекция успешно создана!");
-        setTimeout(this.$toast.clear, 3000);
+        this.$toast.success(
+          this.$t("component.collection.change.create.success-1")
+        );
+        this.clearForm();
       } catch (error) {
-        this.$toast.error(error);
-        setTimeout(this.$toast.clear, 3000);
+        this.$toast.error(
+          error.respone?.data?.msg ||
+            this.$t("component.collection.change.create.error")
+        );
       } finally {
         this.blocked = false;
-        this.clearForm();
+        setTimeout(this.$toast.clear, 3000);
       }
     }
   }

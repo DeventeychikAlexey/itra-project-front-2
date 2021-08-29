@@ -1,16 +1,15 @@
 <template>
   <div>
     <div v-if="tags.length > 0">
-      <Tags class="mb-2" :tags="value" />
       <Multiselect
         v-model="value"
-        :placeholder="$t('view.home.searchPlaceholder')"
-        mode="multiple"
+        mode="tags"
+        :placeholder="$t('view.home.search-1')"
         :options="tags"
         :searchable="true"
-        class="text-black"
         label="tag"
         trackBy="tag"
+        class="text-black"
       >
         <template v-slot:option="{ option }">
           {{ option.tag }}
@@ -21,14 +20,14 @@
       <h3 class="text-center my-5">
         <strong>{{ $t("view.home.title-1") }}</strong>
       </h3>
-      <Items :items="itemsByTags" :read="readOnly" />
+      <Items :items="itemsByTags" :readOnly="readOnly" />
       <hr />
     </div>
     <div v-if="lastCreatedItems.length > 0">
       <h3 class="text-center my-5">
         <strong>{{ $t("view.home.title-2") }}</strong>
       </h3>
-      <Items :items="lastCreatedItems" />
+      <Items :items="lastCreatedItems" :readOnly="readOnly" />
       <hr />
     </div>
     <div v-if="collections.length > 0">
@@ -44,15 +43,13 @@
 import Multiselect from "@vueform/multiselect";
 import Collections from "@/components/collection/Collections.vue";
 import Items from "@/components/collection/item/Items.vue";
-import Tags from "@/components/collection/item/tag/Tags.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Multiselect,
     Collections,
-    Items,
-    Tags
+    Items
   },
   methods: {},
   data() {
@@ -60,7 +57,8 @@ export default {
       readOnly: true,
       value: [],
       collections: [],
-      items: []
+      items: [],
+      value: []
     };
   },
   computed: {
@@ -68,14 +66,20 @@ export default {
     itemsByTags() {
       return this.items.filter(item =>
         item.tags
-          .map(tag => tag.tag)
-          .some(tag => this.value.find(value => tag === value))
+          .map(({ tag }) => tag)
+          .some(tag => this.value.some(value => tag === value))
       );
     },
     biggestCollections() {
-      return this.collections
-        .sort((a, b) => a.countItems - b.countItems)
-        .slice(0, 10);
+      return (
+        this.collections
+          // .sort((a, b) => {
+          //   if (a.countItems < b.countItems) return 1;
+          //   if (a.countItems > b.countItems) return -1;
+          //   return 0;
+          // })
+          .slice(0, 10)
+      );
     },
     lastCreatedItems() {
       return this.items
@@ -92,8 +96,8 @@ export default {
   },
   async created() {
     try {
-      this.collections = await this.GET_COLLECTIONS();
       this.items = await this.GET_ITEMS();
+      this.collections = await this.GET_COLLECTIONS();
     } catch (error) {}
   }
 };

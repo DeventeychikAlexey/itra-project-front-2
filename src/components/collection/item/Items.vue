@@ -4,7 +4,9 @@
       v-for="(item, index) in items"
       :key="index"
       :item="item"
-      :isInCollection="isInCollection"
+      :isInCollection="isInCollectionValue"
+      :readOnly="readOnly"
+      @updateItems="updateItems"
     />
   </div>
 </template>
@@ -19,9 +21,22 @@ export default {
     },
     isInCollection: {
       type: Boolean
+    },
+    readOnly: {
+      type: Boolean
     }
   },
-  components: { Item }
+  components: { Item },
+  computed: {
+    isInCollectionValue() {
+      return this.isInCollection ? this.isInCollection : false;
+    }
+  },
+  methods: {
+    updateItems() {
+      this.$emit("updateItems");
+    }
+  }
 };
 </script>
 

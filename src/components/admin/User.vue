@@ -13,23 +13,38 @@
       <span class="badge bg-info"> {{ curUser.right.name }}</span>
     </td>
     <td>
-      <Button @click="upgradeUser" :color="'success'" :text="'Повысить'" />
+      <Button
+        @click="upgradeUser"
+        :color="'success'"
+        :text="$t('component.admin.user.buttons.title-1')"
+      />
     </td>
     <td>
-      <Button @click="downgradeUser" :color="'secondary'" :text="'Понизить'" />
+      <Button
+        @click="downgradeUser"
+        :color="'secondary'"
+        :text="$t('component.admin.user.buttons.title-2')"
+      />
     </td>
     <td @click="toggleBlocked" v-if="!curUser.blocked">
-      <Button :color="'warning'" :text="'Заблокировать'" />
+      <Button
+        :color="'warning'"
+        :text="$t('component.admin.user.buttons.title-3')"
+      />
     </td>
     <td v-else>
       <Button
         @click="toggleBlocked"
         :color="'success'"
-        :text="'Разблокировать'"
+        :text="$t('component.admin.user.buttons.title-4')"
       />
     </td>
     <td>
-      <Button @click="deleteUser" :color="'danger'" :text="'Удалить'" />
+      <Button
+        @click="deleteUser"
+        :color="'danger'"
+        :text="$t('component.admin.user.buttons.title-5')"
+      />
     </td>
   </tr>
 </template>
@@ -69,9 +84,12 @@ export default {
           right: this.user.right.name
         });
         this.$emit("updateUsers");
-        this.$toast.success("Успешно повышен!");
+        this.$toast.success(this.$t("component.admin.user.buttons.success-1"));
       } catch (error) {
-        this.$toast.error(error?.response?.data?.msg || "You can not!");
+        this.$toast.error(
+          error?.response?.data?.msg ||
+            this.$t("component.admin.user.buttons.restricted-1")
+        );
       } finally {
         setTimeout(this.$toast.clear, 3000);
       }
@@ -84,9 +102,12 @@ export default {
           right: this.user.right.name
         });
         this.$emit("updateUsers");
-        this.$toast.success("Успешно понижен!");
+        this.$toast.success(this.$t("component.admin.user.buttons.success-2"));
       } catch (error) {
-        this.$toast.error(error.response?.data?.msg || "You can not!");
+        this.$toast.error(
+          error.response?.data?.msg ||
+            this.$t("component.admin.user.buttons.restricted-1")
+        );
       } finally {
         setTimeout(this.$toast.clear, 3000);
       }
@@ -99,9 +120,12 @@ export default {
           right: this.user.right.name
         });
         this.$emit("updateUsers");
-        this.$toast.success("Блокировка успешно изменена!");
+        this.$toast.success(this.$t("component.admin.user.buttons.success-3"));
       } catch (error) {
-        this.$toast.error(error.response.data.msg);
+        this.$toast.error(
+          error?.response?.data?.msg ||
+            this.$t("component.admin.user.buttons.restricted-1")
+        );
       } finally {
         setTimeout(this.$toast.clear, 3000);
       }
@@ -115,10 +139,15 @@ export default {
         });
         this.$emit("updateUsers");
         this.$toast.success(
-          `Пользователь ${this.curUser.name} успешно удален!`
+          `${this.curUser.name} ${this.$t(
+            "component.admin.user.buttons.success-4"
+          )} `
         );
       } catch (error) {
-        this.$toast.error(error.response.data.msg);
+        this.$toast.error(
+          error?.response?.data?.msg ||
+            this.$t("component.admin.user.buttons.restricted-1")
+        );
       } finally {
         setTimeout(this.$toast.clear, 3000);
       }

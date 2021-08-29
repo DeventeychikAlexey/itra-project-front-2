@@ -3,7 +3,7 @@
     <div: class="rounded d-flex justify-content-center">
       <div class="col-xl-4 col-lg-6 col-md-8 col-sm-12 shadow-lg p-5 pb-0 ">
         <div class="text-center">
-          <h3 class="text-primary">{{$t('view.login.title')}}</h3>
+          <h3 class="text-primary">{{$t('view.login.title-1')}}</h3>
         </div>
         <div class="p-4">
           <Form @submit="login" class="needs-validation">
@@ -32,7 +32,6 @@
                 :rules="password"
 
               />
-
               <label :class="`form-label text-${themeText}`" for="form3Example3">{{$t('view.login.user.password')}}*</label>
             </div>
             <div :class="`mb-4 text-${themeText}`">
@@ -113,8 +112,7 @@ export default {
         });
         this.$router.push(`/user/${user.id}`);
       } catch (error) {
-        console.log(error.response)
-        this.$toast.error(error.response.data.msg || "Проверьте правильность введеных данных!");
+        this.$toast.error(error.response.data?.msg || this.$t('view.login.error'));
         setTimeout(this.$toast.clear, 3000);
       }
     }

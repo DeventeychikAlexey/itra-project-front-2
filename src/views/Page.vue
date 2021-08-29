@@ -27,7 +27,7 @@
       <input
         class="form-control p-1 rounded"
         type="text"
-        :placeholder="$t('view.page.searchPlaceholder')"
+        :placeholder="$t('view.page.search-1')"
         v-model.trim="searchValue"
       />
       <br />
@@ -36,7 +36,7 @@
         v-if="collections.length > 0"
         :collections="collections"
         :readOnly="readOnly"
-        @deleteCollection="deleteCollection"
+        @updateCollections="updateCollections"
       />
       <p v-else class="text-center fs-5">
         {{ $t("view.page.text-2") }}
@@ -98,32 +98,17 @@ export default {
     ...mapActions([
       "GET_USER",
       "GET_USER_COLLECTIONS",
-      "DELETE_COLLECTION",
-      "DELETE_MY_COLLECTION"
+      "COUNT_COLLECTION_ITEMS"
     ]),
-    async deleteCollection(id) {
-      try {
-        if (this.isAdmin) {
-          await this.DELETE_COLLECTION({
-            id
-          });
-        } else {
-          await this.DELETE_MY_COLLECTION({
-            id
-          });
-        }
-        this.updateCollections();
-        this.$toast.success(this.$t("view.page.successDelete"));
-      } catch (error) {
-        this.$toast.error(error.response.data.msg);
-      } finally {
-        setTimeout(this.$toast.clear, 3000);
-      }
-    },
     async updateCollections() {
       this.ownerCollections = await this.GET_USER_COLLECTIONS(
         this.$route.params.id
       );
+      for (let i = 0; i < this.ownerCollections.length; i++) {
+        this.ownerCollections[i].countItems = await this.COUNT_COLLECTION_ITEMS(
+          this.ownerCollections[i].id
+        );
+      }
     }
   }
 };

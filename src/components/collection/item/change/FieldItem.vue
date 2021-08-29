@@ -1,72 +1,70 @@
 <template>
-  <div class="d-flex">
+  <div :class="`d-flex bg-${theme} text-${themeText}`">
     <div class="form-outline border rounded-3 me-2">
       <input
         type="text"
-        class="form-control active"
-        :id="`fieldTitle${index}`"
+        :class="`form-control active text-${themeText}`"
+        :id="`fieldTitle${index}${type}`"
         v-model="field.title"
       />
-      <label class="form-label fs-6" :for="`fieldTitle${index}`"
-        >Название поля {{ index / 2 + 1 }}</label
+      <label
+        :class="`form-label fs-6 text-${themeText}`"
+        :for="`fieldTitle${index}${type}`"
+        >{{ $t("component.collection.item.change.fieldItem.name") }}
+        {{ index / 2 + 1 }}</label
       >
     </div>
     <div v-if="type != 'boolean'" class="form-outline border rounded-3 ">
       <input
         :type="type"
-        class="form-control active"
-        :id="`fieldValue${index}`"
+        :class="`form-control active text-${themeText}`"
+        :id="`fieldValue${index}${type}`"
         v-model="field.value"
       />
-      <label class="form-label fs-6" :for="`fieldValue${index}`"
-        >Значение поля {{ index / 2 + 1 }}</label
+      <label
+        :class="`form-label fs-6 text-${themeText}`"
+        :for="`fieldValue${index}${type}`"
+        >{{ $t("component.collection.item.change.fieldItem.value") }}
+        {{ index / 2 + 1 }}</label
       >
     </div>
     <div v-else>
-      <div class="form-check">
+      <div class="form-check d-flex align-items-center">
         <input
           class="form-check-input"
           type="radio"
           :name="`fieldValue${index}`"
-          :id="`fieldValue${index}`"
+          :id="`fieldValue${index}${type}`"
           value="true"
           v-model="field.value"
-          checked
+          checked="true"
         />
-        <label class="form-check-label" :for="`fieldValue${index}`">
-          Правда
+        <label class="form-check-label fs-6" :for="`fieldValue${index}${type}`">
+          {{ $t("component.collection.item.change.fieldItem.true") }}
         </label>
       </div>
-      <div class="form-check">
+      <div class="form-check d-flex align-items-center">
         <input
           class="form-check-input"
           type="radio"
           :name="`fieldValue${index}`"
-          :id="`fieldValue${index + 1}`"
+          :id="`fieldValue${index + 1}${type}`"
           value="false"
           v-model="field.value"
         />
-        <label class="form-check-label" :for="`fieldValue${index + 1}`">
-          Ложь
+        <label
+          class="form-check-label fs-6"
+          :for="`fieldValue${index + 1}${type}`"
+        >
+          {{ $t("component.collection.item.change.fieldItem.false") }}
         </label>
       </div>
-
-      <!-- <input
-        type="radio"
-        :name="`fieldValue${index}`"
-        class="form-control active"
-        value="false"
-        :id="`fieldValue${index + 1}`"
-        v-model.number="field.value"
-      />
-      <label class="form-label fs-6" :for="`fieldValue${index + 1}`"
-        >Ложь {{ index + 1 }}</label
-      > -->
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   props: {
     index: {
@@ -81,6 +79,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  computed: {
+    ...mapGetters(["theme", "themeText"])
   }
 };
 </script>

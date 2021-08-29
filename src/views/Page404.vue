@@ -8,10 +8,10 @@
               <i class="fa fa-home"></i><span>404</span>
             </router-link>
           </div>
-          <span class="inner-status">Oops! You're lost</span>
+          <span class="inner-status">{{ $t("view.page404.text-1") }}</span>
           <span class="inner-detail">
             <router-link to="/" tag="button" class="btn btn-info mtl">
-              <i class="fa fa-home"></i>&nbsp; Return home
+              <i class="fa fa-home"></i>&nbsp; {{ $t("view.page404.text-2") }}
             </router-link>
           </span>
         </div>

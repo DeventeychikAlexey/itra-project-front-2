@@ -2,7 +2,11 @@ import axios from "axios";
 export default {
   LOGIN({ commit }, data) {
     return new Promise((resolve, reject) => {
-      axios({ url: "http://localhost:3000/auth/login", data, method: "POST" })
+      axios({
+        url: "http://localhost:3000/back/auth/login",
+        data,
+        method: "POST"
+      })
         .then(async resp => {
           const token = resp.data.msg;
           localStorage.setItem("token", token);
@@ -20,7 +24,7 @@ export default {
   REGISTER({}, data) {
     return new Promise((resolve, reject) => {
       axios({
-        url: "http://localhost:3000/auth/register",
+        url: "http://localhost:3000/back/auth/register",
         data,
         method: "POST"
       })
@@ -35,7 +39,7 @@ export default {
   AUTH({ commit }) {
     return new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:3000/auth/")
+        .post("http://localhost:3000/back/auth/")
         .then(resp => {
           commit("AUTH_USER", resp.data.msg);
           resolve(resp.data.msg);
