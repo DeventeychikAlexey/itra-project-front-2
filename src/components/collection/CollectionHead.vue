@@ -10,7 +10,7 @@
           {{ getValidName }}
         </h3>
         <div class="mb-1">
-          {{ collection.topic.name }}
+          {{ collection?.topic?.name }}
         </div>
         <div class="mb-2 ">
           <strong class="me-1">{{
@@ -19,12 +19,12 @@
           >{{ date }}
         </div>
         <p class="card-text mb-auto">
-          {{ collection.description }}
+          {{ collection?.description }}
         </p>
         <Buttons class="flex-md-nowrap mt-3" :buttons="buttons" />
       </div>
       <div class="card-img-right image-wrapper">
-        <Image v-if="collection.id" :idCollection="collection.id" />
+        <Image v-if="collection?.id" :idCollection="collection?.id" />
       </div>
     </div>
   </div>
@@ -50,13 +50,13 @@ export default {
   computed: {
     ...mapGetters(["lang", "theme", "themeText"]),
     date() {
-      return moment(this.collection.createdAt)
+      return moment(this.collection?.createdAt)
         .locale(this.lang)
         .fromNow();
     },
     getValidName() {
       return (
-        this.collection.name ||
+        this.collection?.name ||
         this.$t("component.collection.collection-head.title-2")
       );
     }

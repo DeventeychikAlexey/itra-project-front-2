@@ -186,7 +186,6 @@ export default {
 
   // Comments
   async CREATE_COMMENT({}, body) {
-    console.log(body);
     const id = body.id;
     delete body.id;
     const resp = await axios.post(

@@ -11,7 +11,7 @@
             type="text"
             id="form8Example1"
             :class="
-              `form-control ${editedCollection.name &&
+              `form-control ${editedCollection?.name &&
                 'active'} text-${themeText}`
             "
           />
@@ -23,6 +23,7 @@
           </label>
         </div>
         <Multiselect
+          v-if="editedCollection?.topic?.name"
           v-model="editedCollection.topic.name"
           :placeholder="$t('component.collection.change.edit.search-1')"
           label="name"
@@ -40,7 +41,7 @@
           <textarea
             v-model="editedCollection.description"
             :class="
-              `form-control ${editedCollection.description &&
+              `form-control ${editedCollection?.description &&
                 'active'} text-${themeText}`
             "
             id="form4Example3"
@@ -92,7 +93,7 @@ export default {
     ...mapGetters(["topics", "theme", "themeText", "uppy", "isAdmin"]),
     topicId() {
       return (
-        this.topics.find(el => el.name === this.editedCollection.topic.name)
+        this.topics.find(el => el.name === this.editedCollection?.topic?.name)
           ?.id || -1
       );
     },
@@ -100,24 +101,29 @@ export default {
       return this.topicId == -1 || this.blocked;
     }
   },
+  watch: {
+    collection(value) {
+      this.editedCollection = value;
+    }
+  },
   methods: {
     ...mapActions(["EDIT_MY_COLLECTION", "EDIT_COLLECTION", "DELETE_IMAGE"]),
     async editMyCollection() {
       await this.EDIT_MY_COLLECTION({
-        id: this.editedCollection.id,
-        name: this.editedCollection.name,
-        description: this.editedCollection.description,
+        id: this.editedCollection?.id,
+        name: this.editedCollection?.name,
+        description: this.editedCollection?.description,
         id_topic: this.topicId,
-        image: this.editedCollection.image
+        image: this.editedCollection?.image
       });
     },
     async editCollectionById() {
       await this.EDIT_COLLECTION({
-        id: this.editedCollection.id,
-        name: this.editedCollection.name,
-        description: this.editedCollection.description,
+        id: this.editedCollection?.id,
+        name: this.editedCollection?.name,
+        description: this.editedCollection?.description,
         id_topic: this.topicId,
-        image: this.editedCollection.image
+        image: this.editedCollection?.image
       });
     },
     async editCollection() {
