@@ -71,15 +71,13 @@ export default {
       );
     },
     biggestCollections() {
-      return (
-        this.collections
-          // .sort((a, b) => {
-          //   if (a.countItems < b.countItems) return 1;
-          //   if (a.countItems > b.countItems) return -1;
-          //   return 0;
-          // })
-          .slice(0, 10)
-      );
+      return this.collections
+        .sort((a, b) => {
+          if (a.countItems < b.countItems) return 1;
+          if (a.countItems > b.countItems) return -1;
+          return 0;
+        })
+        .slice(0, 10);
     },
     lastCreatedItems() {
       return this.items

@@ -1,7 +1,6 @@
 <template>
   <div>
     <h3 class="text mb-5">
-      Админка с правами
       {{ $t("view.admin.title-1") }}
       <span class="badge bg-info text-dark ms-1"> {{ right }}</span>
     </h3>

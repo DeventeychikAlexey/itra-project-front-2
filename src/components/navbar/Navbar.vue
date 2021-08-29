@@ -9,23 +9,6 @@
           <img src="@/assets/logo.png" alt="logo" />
         </router-link>
       </div>
-      <div class="row me-auto d-sm-block d-none w-100">
-        <div class="col">
-          <Multiselect
-            v-model="value"
-            :placeholder="$t('component.navbar.search-1')"
-            label="name"
-            trackBy="name"
-            :options="options"
-            :searchable="true"
-            :class="`text-black`"
-          >
-            <template v-slot:option="{ option }">
-              {{ option.name }}
-            </template>
-          </Multiselect>
-        </div>
-      </div>
       <button
         class="navbar-toggler align-self-center"
         type="button"
@@ -72,19 +55,6 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: { Multiselect, SelectTheme, SelectLanguage },
-  data() {
-    return {
-      value: null,
-      options: [
-        {
-          value: "captainamerica",
-          name: "Captain America",
-          icon:
-            "https://cdn2.iconfinder.com/data/icons/avengers-filled/48/03_-_Captain_America_-_infinity_war_-_end_game_-_marvel_-_avengers_-_super_hero-512.png"
-        }
-      ]
-    };
-  },
   computed: {
     ...mapGetters(["isLoggedIn", "user", "theme", "themeText", "isAdmin"]),
     routes() {

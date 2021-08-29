@@ -21,6 +21,20 @@ export default {
         });
     });
   },
+  SOCIAL_MEDIA_LOGIN({ commit }, token) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        localStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        commit("AUTH_TOKEN", token);
+        const result = await this.dispatch("AUTH");
+        resolve(result);
+      } catch (error) {
+        localStorage.removeItem("token");
+        reject(err);
+      }
+    });
+  },
   REGISTER({}, data) {
     return new Promise((resolve, reject) => {
       axios({
