@@ -7,38 +7,38 @@ export default {
   // Users
   async UPGRADE_USER({}, { id, right }) {
     const resp = await axios.put(
-      `http://localhost:3000/back/${right}/upgradeUser/${id}`
+      `https://itra-project.herokuapp.com/back/${right}/upgradeUser/${id}`
     );
     return resp.data.msg;
   },
   async DOWNGRADE_USER({}, { id, right }) {
     const resp = await axios.put(
-      `http://localhost:3000/back/${right}/downgradeUser/${id}`
+      `https://itra-project.herokuapp.com/back/${right}/downgradeUser/${id}`
     );
     return resp.data.msg;
   },
   async TOGGLE_BLOCKED({}, { id, right }) {
     const resp = await axios.put(
-      `http://localhost:3000/back/${right}/toggleBlocked/${id}`
+      `https://itra-project.herokuapp.com/back/${right}/toggleBlocked/${id}`
     );
     return resp.data.msg;
   },
   async DELETE_USER({}, { id, right }) {
     const resp = await axios.delete(
-      `http://localhost:3000/back/${right}/user/${id}`
+      `https://itra-project.herokuapp.com/back/${right}/user/${id}`
     );
     return resp.data.msg;
   },
   // Collections
   async DELETE_COLLECTION({}, id) {
     const resp = await axios.delete(
-      `http://localhost:3000/back/admin/collection/${id}`
+      `https://itra-project.herokuapp.com/back/admin/collection/${id}`
     );
     return resp.data.msg;
   },
   async CREATE_COLLECTION({}, { id, name, description, id_topic, image }) {
     const resp = await axios.post(
-      `http://localhost:3000/back/admin/collection/${id}`,
+      `https://itra-project.herokuapp.com/back/admin/collection/${id}`,
       {
         name,
         description,
@@ -52,7 +52,7 @@ export default {
     const id = body.id;
     delete body.id;
     const resp = await axios.put(
-      `http://localhost:3000/back/admin/collection/${id}`,
+      `https://itra-project.herokuapp.com/back/admin/collection/${id}`,
       body
     );
     return resp.data.msg;
@@ -61,14 +61,14 @@ export default {
   // Items
   async CREATE_ITEM({}, body) {
     const resp = await axios.post(
-      `http://localhost:3000/back/admin/item`,
+      `https://itra-project.herokuapp.com/back/admin/item`,
       body
     );
     return resp.data.msg;
   },
   async DELETE_ITEM({}, id) {
     const resp = await axios.delete(
-      `http://localhost:3000/back/admin/item/${id}`
+      `https://itra-project.herokuapp.com/back/admin/item/${id}`
     );
     return resp.data.msg;
   },
@@ -76,7 +76,7 @@ export default {
     const id = body.itemId;
     delete body.itemId;
     const resp = await axios.put(
-      `http://localhost:3000/back/admin/item/${id}`,
+      `https://itra-project.herokuapp.com/back/admin/item/${id}`,
       body
     );
     return resp.data.msg;

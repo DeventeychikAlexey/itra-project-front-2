@@ -62,7 +62,7 @@ export default {
     });
 
     uppy.use(XHRUpload, {
-      endpoint: "http://localhost:3000/back/user/image",
+      endpoint: "https://itra-project.herokuapp.com/back/user/image",
       method: "post",
       FormData: true,
       fieldName: "image",

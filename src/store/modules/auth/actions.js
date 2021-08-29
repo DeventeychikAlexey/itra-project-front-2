@@ -3,7 +3,7 @@ export default {
   LOGIN({ commit }, data) {
     return new Promise((resolve, reject) => {
       axios({
-        url: "http://localhost:3000/back/auth/login",
+        url: "https://itra-project.herokuapp.com/back/auth/login",
         data,
         method: "POST"
       })
@@ -38,7 +38,7 @@ export default {
   REGISTER({}, data) {
     return new Promise((resolve, reject) => {
       axios({
-        url: "http://localhost:3000/back/auth/register",
+        url: "https://itra-project.herokuapp.com/back/auth/register",
         data,
         method: "POST"
       })
@@ -53,7 +53,7 @@ export default {
   AUTH({ commit }) {
     return new Promise((resolve, reject) => {
       axios
-        .post("http://localhost:3000/back/auth/")
+        .post("https://itra-project.herokuapp.com/back/auth/")
         .then(resp => {
           commit("AUTH_USER", resp.data.msg);
           resolve(resp.data.msg);
