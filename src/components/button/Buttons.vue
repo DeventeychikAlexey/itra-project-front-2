@@ -9,14 +9,6 @@ import Button from "@/components/button/Button.vue";
 
 export default {
   props: {
-    id: {
-      type: Number,
-      required: true
-    },
-    readOnly: {
-      type: Boolean,
-      required: true
-    },
     buttons: {
       type: Array,
       required: true

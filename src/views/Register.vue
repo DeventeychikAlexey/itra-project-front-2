@@ -3,7 +3,7 @@
     <div class="rounded d-flex justify-content-center">
       <div class="col-xl-4 col-lg-6 col-md-8 col-sm-12 shadow-lg p-5 pb-0 ">
         <div class="text-center">
-          <h3 class="text-primary">{{ $t("view.register.title") }}</h3>
+          <h3 class="text-primary">{{ $t("view.register.title-1") }}</h3>
         </div>
         <div class="p-4">
           <Form @submit="register" class="needs-validation" novalidate>
@@ -28,7 +28,6 @@
               />
             </div>
 
-            <!-- Email input -->
             <div
               :class="`form-outline mb-3 border border-${themeText} rounded-3`"
             >
@@ -50,7 +49,6 @@
               />
             </div>
 
-            <!-- Password input -->
             <div
               :class="`form-outline mb-3 border border-${themeText} rounded-3`"
             >
@@ -95,7 +93,6 @@
               />
             </div>
 
-            <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block  mb-3">
               {{ $t("view.register.button") }}
             </button>
@@ -162,7 +159,9 @@ export default {
         });
         this.$router.push(`/user/${user.id}`);
       } catch (error) {
-        this.$toast.error(error.response.data.msg);
+        this.$toast.error(
+          error?.response?.data?.msg || this.$t("view.register.error")
+        );
         setTimeout(this.$toast.clear, 3000);
       }
     }

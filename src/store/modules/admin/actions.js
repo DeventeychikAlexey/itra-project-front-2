@@ -30,7 +30,7 @@ export default {
     return resp.data.msg;
   },
   // Collections
-  async DELETE_COLLECTION({}, { id }) {
+  async DELETE_COLLECTION({}, id) {
     const resp = await axios.delete(
       `https://itra-project.herokuapp.com/back/admin/collection/${id}`
     );
@@ -57,10 +57,25 @@ export default {
     );
     return resp.data.msg;
   },
+
+  // Items
   async CREATE_ITEM({}, body) {
-    const id = body.id;
-    delete body.id;
     const resp = await axios.post(
+      `https://itra-project.herokuapp.com/back/admin/item`,
+      body
+    );
+    return resp.data.msg;
+  },
+  async DELETE_ITEM({}, id) {
+    const resp = await axios.delete(
+      `https://itra-project.herokuapp.com/back/admin/item/${id}`
+    );
+    return resp.data.msg;
+  },
+  async EDIT_ITEM({}, body) {
+    const id = body.itemId;
+    delete body.itemId;
+    const resp = await axios.put(
       `https://itra-project.herokuapp.com/back/admin/item/${id}`,
       body
     );

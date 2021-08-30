@@ -63,7 +63,7 @@ export default {
 
     uppy.use(XHRUpload, {
       endpoint: "https://itra-project.herokuapp.com/back/user/image",
-      method: "put",
+      method: "post",
       FormData: true,
       fieldName: "image",
       headers: {

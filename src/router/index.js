@@ -30,13 +30,25 @@ const routes = [
     component: () => import("../views/CollectionEdit.vue")
   },
   {
+    path: "/item/edit/:id",
+    component: () => import("../views/ItemEdit.vue")
+  },
+  {
     path: "/admin",
     meta: { adminRights: true },
     component: () => import("../views/Admin.vue")
   },
   {
-    path: "/:pathMatch(.*)*",
+    path: "/auth/:token",
+    meta: { token: true }
+  },
+  {
+    path: "/page404",
     component: () => import("../views/Page404.vue")
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/page404"
   }
 ];
 
@@ -49,7 +61,21 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   if (to.meta.adminRights) {
     if (store.getters.isAdmin) next();
-    else next("/");
+    else next("/page404");
+  }
+  if (to.meta.token) {
+    if (store.getters.isLoggedIn) next("/page404");
+    else {
+      try {
+        const user = await store.dispatch(
+          "SOCIAL_MEDIA_LOGIN",
+          to.params.token
+        );
+        next(`/user/${user.id}`);
+      } catch (error) {
+        next("/login");
+      }
+    }
   } else {
     if (to.meta.isLogout) store.dispatch("LOGOUT");
     next();

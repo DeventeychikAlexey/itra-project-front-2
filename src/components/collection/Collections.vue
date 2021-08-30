@@ -4,7 +4,7 @@
       <Collection
         :collection="collection"
         :readOnly="readOnly"
-        @deleteCollection="deleteCollection"
+        @updateCollections="updateCollections"
       />
     </div>
   </div>
@@ -26,8 +26,8 @@ export default {
   },
   components: { Collection },
   methods: {
-    deleteCollection(id) {
-      this.$emit("deleteCollection", id);
+    updateCollections() {
+      this.$emit("updateCollections");
     }
   }
 };

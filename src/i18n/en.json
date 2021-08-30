@@ -1,37 +1,49 @@
 {
    "form":{
       "error":{
-         "string":"This field needs to be a string!",
+         "string":"This field need to be a string!",
          "required":"This field is required!",
-         "email":"Wrong email!",
-         "min":"Minimum chars is 6!",
-         "max":"Maximum chars is 32!"
+         "email":"Email is wrong!",
+         "min":"There minimum symbols is 6!",
+         "max":"There maximum symbols is 32!"
       }
    },
    "view":{
+      "admin":{
+         "title-1":"Admin page",
+         "title-2":"Users",
+         "text-1":"No one is found :("
+      },
+      "collection":{
+         "title-1":"Create item",
+         "title-2":"Items",
+         "text-1":"There is nothing yet :(",
+         "text-2":"Nothing is found :(",
+         "search-1":"Find item by name",
+         "buttons":{
+            "title-1":"Owner",
+            "title-2":"Edit",
+            "title-3":"Delete"
+         }
+      },
+      "collection-edit":{
+         "title-1":"Edit collection",
+         "buttons":{
+            "title-1":"Go back"
+         }
+      },
       "home":{
          "title-1":"Found items",
-         "title-2":"Recently added items",
+         "title-2":"Recently created items",
          "title-3":"Biggest collections",
-         "searchPlaceholder":"Find items by tags"
+         "search-1":"Find items by tags"
       },
-      "register":
-      {
-         "title":"Create account",
-         "user":
-         {
-            "name":"Name",
-            "email":"Email address",
-            "password":"Password",
-            "password2":"Repeat password"
-         },
-         "button":"Register",
-         "text":"Already singed on?",
-         "route":"Sign in"
+      "item-edit":{
+         "title-1":"Edit item"
       },
       "login":
       {
-         "title":"Login",
+         "title-1":"Login",
          "user":
          {
             "email":"Email address",
@@ -39,20 +51,72 @@
          },
          "button":"Sign in",
          "text":"Not signed on yet?",
-         "route":"Sing on",
-         "media":"Or sign in with"
+         "route":"Sign on",
+         "media":"Or sing in with",
+         "error":"Invalid input data!"
+      },
+      "register":
+      {
+         "title-1":"Create account",
+         "user":
+         {
+            "name":"Name",
+            "email":"Email address",
+            "password":"Password",
+            "password2":"Repeat password"
+         },
+         "button":"Sing on",
+         "text":"Already signed on?",
+         "route":"Sign in",
+         "error":"Something went wrong!"
+
       },
       "page":{
-         "title-1":"my page",
+         "title-1":"My page",
          "title-2":"Create collection",
          "title-3":"Collections",
-         "text-1":"Collections do not exist by now :(",
+         "text-1":"There is nothing yet :(",
          "text-2":"Nothing is found :(",
-         "searchPlaceholder":"Search collections by name",
-         "successDelete":"Collection has been successfully created!"
+         "search-1":"Find collection by name"
+      },
+      "page404":{
+         "text-1":"Ooops! You're lost",
+         "text-2":"Go home"
       }
    },
    "component":{
+      "admin":{
+         "user":{
+            "buttons":{
+               "title-1":"Upgrade",
+               "title-2":"Downgrade",
+               "title-3":"Block",
+               "title-4":"Unblock",
+               "title-5":"Delete",
+               "success-1":"Successfully upgraded!",
+               "success-2":"Successfully downgraded!",
+               "success-3":"The block is successfully changed!",
+               "success-4":"Successfully deleted!",
+               "restricted-1":"Not available!"
+            }
+         },
+         "users":{
+            "title-1":"Index",
+            "title-2":"Id",
+            "title-3":"Name",
+            "title-4":"Status",
+            "title-5":"Upgrade",
+            "title-6":"Downgrade",
+            "title-7":"Blocking",
+            "title-8":"Delete"
+         }
+      },
+      "comment":{
+         "head":{
+            "title-1":"Add your comment",
+            "button-1":"Add"
+         }
+      },
       "navbar":{
          "routes":{
             "login":"Login",
@@ -61,19 +125,98 @@
             "logout":"Logout",
             "admin": "Admin"
          },
-         "searchPlaceholder":"Find items"
+         "search-1":"Find item"
       },
       "collection":{
-         "button":{
-            "view":"View",
-            "edit":"Edit",
-            "delete":"REmove"
+         "collection":{
+            "text-1":"Count:",
+            "text-2":"No name",
+            "buttons":{
+               "view":"View",
+               "edit":"Edit",
+               "delete":"Delete"
+            },
+            "success-1":"Collection successfully deleted!",
+            "error":"Something went wrong!"
          },
-         "create":{
-            "name":"Name",
-            "description":"Description",
-            "searchPlaceholder":"Choose topic",
-            "button":"Add"
+         "collection-head":{
+            "title-1":"Created:",
+            "title-2":"No name"
+         },
+         "change":{
+            "create":{
+               "name":"Name",
+               "description":"Description",
+               "search-1":"Choose topic",
+               "button":"Add",
+               "success-1":"Collection successfully created!",
+               "error":"Couldn't create!"
+            },     
+            "edit":{
+               "name":"Name",
+               "description":"Description",
+               "search-1":"Choose topic",
+               "button":"Change",
+               "error":"Couldn't change!"
+            }
+         },
+         "item":{
+            "item":{
+               "title-1":"No name",
+               "buttons":{
+                 "title-1":"Go to collection",
+                 "title-2":"Edit",
+                 "title-3":"Delete",
+                 "success-1":"Item successfully deleted!",
+                 "error":"Something went wrong!"
+               },
+               "errorLike":"Couldn't add a like!"
+            },
+            "change":{
+               "fieldItem":{
+                  "name":"Name",
+                  "value":"Value",
+                  "true":"True",
+                  "false":"False"
+               },
+               "create":{
+                  "name":"Name",
+                  "description":"Description",
+                  "search-1":"Add tags",
+                  "countFields":"Count fields:",
+                  "fieldNumber":"Number",
+                  "fieldText":"Text",
+                  "fieldString":"String",
+                  "fieldDate":"Date",
+                  "fieldBool":"Boolean",
+                  "fieldNumber-title":"Number fields:",
+                  "fieldText-title":"Text fields:",
+                  "fieldString-title":"String fields:",
+                  "fieldDate-title":"Dates:",
+                  "fieldBool-title":"Boolean fields:",
+                  "button":"Add",
+                  "success-1":"Item successfully created!",
+                  "error":"Couldn't add!"
+               },
+               "edit":{
+                  "name":"Name",
+                  "description":"Description",
+                  "search-1":"Add tags",
+                  "countFields":"Count fields:",
+                  "fieldNumber":"Number",
+                  "fieldText":"Text",
+                  "fieldString":"String",
+                  "fieldDate":"Date",
+                  "fieldBool":"Boolean",
+                  "fieldNumber-title":"Number fields:",
+                  "fieldText-title":"Text fields:",
+                  "fieldString-title":"String fields:",
+                  "fieldDate-title":"Dates:",
+                  "fieldBool-title":"Boolean fields:",
+                  "button":"Change",
+                  "error":"Couldn't change data!"
+               }
+            }
          }
       }
    }

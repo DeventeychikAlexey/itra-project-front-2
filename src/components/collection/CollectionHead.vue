@@ -1,25 +1,30 @@
 <template>
   <div>
     <div
-      class="card flex-md-nowrap flex-wrap-reverse flex-row flex-1-1 mb-4 box-shadow "
+      :class="
+        `card bg-${theme} text-${textTheme} flex-md-nowrap flex-wrap-reverse flex-row flex-1-1 mb-4 box-shadow`
+      "
     >
       <div class="card-body d-flex flex-column align-items-start">
         <h3 class="card-title mb-0">
           {{ getValidName }}
         </h3>
         <div class="mb-1">
-          {{ collection.topic.name }}
+          {{ collection?.topic?.name }}
         </div>
-        <div class="mb-2 text-muted">
-          <strong class="me-1">Создано:</strong>{{ date }}
+        <div class="mb-2 ">
+          <strong class="me-1">{{
+            $t("component.collection.collection-head.title-1")
+          }}</strong
+          >{{ date }}
         </div>
         <p class="card-text mb-auto">
-          {{ collection.description }}
+          {{ collection?.description }}
         </p>
         <Buttons class="flex-md-nowrap mt-3" :buttons="buttons" />
       </div>
       <div class="card-img-right image-wrapper">
-        <Image :idCollection="collection.id" />
+        <Image v-if="collection?.id" :idCollection="collection?.id" />
       </div>
     </div>
   </div>
@@ -43,14 +48,17 @@ export default {
   },
   components: { Image, Buttons },
   computed: {
-    ...mapGetters(["lang"]),
+    ...mapGetters(["lang", "theme", "themeText"]),
     date() {
-      return moment(this.collection.createdAt)
+      return moment(this.collection?.createdAt)
         .locale(this.lang)
         .fromNow();
     },
     getValidName() {
-      return this.collection.name || "Без названия";
+      return (
+        this.collection?.name ||
+        this.$t("component.collection.collection-head.title-2")
+      );
     }
   }
 };

@@ -10,17 +10,22 @@
             v-model="editedCollection.name"
             type="text"
             id="form8Example1"
-            :class="`form-control ${editedCollection.name && 'active'}`"
+            :class="
+              `form-control ${editedCollection?.name &&
+                'active'} text-${themeText}`
+            "
           />
           <label
             for="form8Example1"
             :class="`form-label fs-6 text-${themeText}`"
-            >{{ $t("component.collection.create.name") }}</label
           >
+            {{ $t("component.collection.change.edit.name") }}
+          </label>
         </div>
         <Multiselect
+          v-if="editedCollection?.topic?.name"
           v-model="editedCollection.topic.name"
-          :placeholder="$t('component.collection.create.searchPlaceholder')"
+          :placeholder="$t('component.collection.change.edit.search-1')"
           label="name"
           trackBy="name"
           :options="topics"
@@ -35,14 +40,17 @@
         <div class="form-outline border rounded-3 mb-2">
           <textarea
             v-model="editedCollection.description"
-            :class="`form-control ${editedCollection.description && 'active'}`"
+            :class="
+              `form-control ${editedCollection?.description &&
+                'active'} text-${themeText}`
+            "
             id="form4Example3"
             rows="4"
           ></textarea>
           <label
             :class="`form-label fs-6 text-${themeText}`"
             for="form4Example3"
-            >{{ $t("component.collection.create.description") }}</label
+            >{{ $t("component.collection.change.edit.description") }}</label
           >
         </div>
         <button
@@ -50,7 +58,7 @@
           class="w-100 btn btn-lg btn-secondary"
           :disabled="disabled"
         >
-          Изменить
+          {{ $t("component.collection.change.edit.button") }}
         </button>
       </form>
     </div>
@@ -85,7 +93,7 @@ export default {
     ...mapGetters(["topics", "theme", "themeText", "uppy", "isAdmin"]),
     topicId() {
       return (
-        this.topics.find(el => el.name === this.editedCollection.topic.name)
+        this.topics.find(el => el.name === this.editedCollection?.topic?.name)
           ?.id || -1
       );
     },
@@ -93,24 +101,29 @@ export default {
       return this.topicId == -1 || this.blocked;
     }
   },
+  watch: {
+    collection(value) {
+      this.editedCollection = value;
+    }
+  },
   methods: {
     ...mapActions(["EDIT_MY_COLLECTION", "EDIT_COLLECTION", "DELETE_IMAGE"]),
     async editMyCollection() {
       await this.EDIT_MY_COLLECTION({
-        id: this.editedCollection.id,
-        name: this.editedCollection.name,
-        description: this.editedCollection.description,
+        id: this.editedCollection?.id,
+        name: this.editedCollection?.name,
+        description: this.editedCollection?.description,
         id_topic: this.topicId,
-        image: this.editedCollection.image
+        image: this.editedCollection?.image
       });
     },
     async editCollectionById() {
       await this.EDIT_COLLECTION({
-        id: this.editedCollection.id,
-        name: this.editedCollection.name,
-        description: this.editedCollection.description,
+        id: this.editedCollection?.id,
+        name: this.editedCollection?.name,
+        description: this.editedCollection?.description,
         id_topic: this.topicId,
-        image: this.editedCollection.image
+        image: this.editedCollection?.image
       });
     },
     async editCollection() {
@@ -125,7 +138,10 @@ export default {
         else await this.editMyCollection();
         this.$router.push(`/collection/${this.$route.params.id}`);
       } catch (error) {
-        this.$toast.error(error.response.data.msg);
+        this.$toast.error(
+          error.response.data?.msg ||
+            this.$t("component.collection.change.edit.error")
+        );
         setTimeout(this.$toast.clear, 3000);
       } finally {
         this.blocked = false;

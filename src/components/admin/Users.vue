@@ -4,14 +4,16 @@
   >
     <thead>
       <tr>
-        <th class="text-start" scope="col">Индекс</th>
-        <th scope="col">Id</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Статус</th>
-        <th scope="col">Повысить</th>
-        <th scope="col">Понизить</th>
-        <th scope="col">Заблокировать</th>
-        <th scope="col">Удалить</th>
+        <th class="text-start" scope="col">
+          {{ $t("component.admin.users.title-1") }}
+        </th>
+        <th scope="col">{{ $t("component.admin.users.title-2") }}</th>
+        <th scope="col">{{ $t("component.admin.users.title-3") }}</th>
+        <th scope="col">{{ $t("component.admin.users.title-4") }}</th>
+        <th scope="col">{{ $t("component.admin.users.title-5") }}</th>
+        <th scope="col">{{ $t("component.admin.users.title-6") }}</th>
+        <th scope="col">{{ $t("component.admin.users.title-7") }}</th>
+        <th scope="col">{{ $t("component.admin.users.title-8") }}</th>
       </tr>
     </thead>
     <tbody>

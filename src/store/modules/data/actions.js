@@ -62,7 +62,7 @@ export default {
     );
     return resp.data.msg;
   },
-  async DELETE_MY_COLLECTION({}, { id }) {
+  async DELETE_MY_COLLECTION({}, id) {
     const resp = await axios.delete(
       `https://itra-project.herokuapp.com/back/user/collection/${id}`
     );
@@ -70,6 +70,31 @@ export default {
   },
 
   // Items
+  async CREATE_MY_ITEM({}, body) {
+    const resp = await axios.post(
+      `https://itra-project.herokuapp.com/back/user/item`,
+      body
+    );
+    return resp.data.msg;
+  },
+
+  async DELETE_MY_ITEM({}, id) {
+    const resp = await axios.delete(
+      `https://itra-project.herokuapp.com/back/user/item/${id}`
+    );
+    return resp.data.msg;
+  },
+
+  async EDIT_MY_ITEM({}, body) {
+    const id = body.itemId;
+    delete body.itemId;
+    const resp = await axios.put(
+      `https://itra-project.herokuapp.com/back/user/item/${id}`,
+      body
+    );
+    return resp.data.msg;
+  },
+
   async GET_COLLECTION_ITEMS({}, id) {
     const resp = await axios.get(
       `https://itra-project.herokuapp.com/back/items/${id}`
@@ -79,6 +104,13 @@ export default {
   async GET_ITEMS({}) {
     const resp = await axios.get(
       `https://itra-project.herokuapp.com/back/items`
+    );
+
+    return resp.data.msg;
+  },
+  async GET_ITEM({}, id) {
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/item/${id}`
     );
     return resp.data.msg;
   },
@@ -149,6 +181,30 @@ export default {
   async DELETE_IMAGE({}, id) {
     const resp = await axios.delete(
       `https://itra-project.herokuapp.com/back/user/image/${id}`
+    );
+    return resp.data.msg;
+  },
+
+  // Comments
+  async CREATE_COMMENT({}, body) {
+    const id = body.id;
+    delete body.id;
+    const resp = await axios.post(
+      `https://itra-project.herokuapp.com/back/user/comment/item/${id}`,
+      body
+    );
+    return resp.data.msg;
+  },
+  async GET_ITEM_COMMENTS({}, id) {
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/comment/item/${id}`
+    );
+    return resp.data.msg;
+  },
+
+  async SUBSCRIBE_COMMENTS({}, id) {
+    const resp = await axios.get(
+      `https://itra-project.herokuapp.com/back/comment/update/item/${id}`
     );
     return resp.data.msg;
   }

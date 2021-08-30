@@ -1,6 +1,6 @@
 <template>
   <router-link :to="`/collection/${idCollection}`">
-    <img :src="`${image}`" :alt="`collectionImage${idCollection}`" />
+    <img :src="`${imageToShow}`" :alt="`collectionImage${idCollection}`" />
   </router-link>
 </template>
 
@@ -21,16 +21,19 @@ export default {
   },
   computed: {
     ...mapGetters(["thumbnail"]),
-    image() {
+    imageToShow() {
       return this.image ? this.image : this.thumbnail;
     }
   },
   methods: {
-    ...mapActions(["GET_IMAGE"])
+    ...mapActions(["GET_IMAGE"]),
+    async getImage(id) {
+      this.image = await this.GET_IMAGE(id);
+    }
   },
   async created() {
     try {
-      this.image = await this.GET_IMAGE(this.idCollection);
+      this.getImage(this.idCollection);
     } catch (error) {}
   }
 };
